@@ -329,12 +329,12 @@ SHELL
   # sets up the profile.d script for this buildpack
   def setup_profiled
     instrument 'setup_profiled' do
-      profiled_path = [binstubs_relative_paths.map {|path| "$HOME/#{path}" }.join(":")]
+      profiled_path = [binstubs_relative_paths.map {|path| "$HOME/web/#{path}" }.join(":")]
       profiled_path << "vendor/#{@yarn_installer.binary_path}" if has_yarn_binary?
       profiled_path << "$PATH"
-
+      
       set_env_default  "LANG",     "en_US.UTF-8"
-      set_env_override "GEM_PATH", "$HOME/#{slug_vendor_base}:$GEM_PATH"
+      set_env_override "GEM_PATH", "$HOME/web/#{slug_vendor_base}:$GEM_PATH"
       set_env_override "PATH",      profiled_path.join(":")
 
       add_to_profiled set_default_web_concurrency if env("SENSIBLE_DEFAULTS")
